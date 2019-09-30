@@ -1,0 +1,12 @@
+{
+    "smtp": {
+        "host": "smtp.seu.edu.cn", 
+        "port": 465,
+        "username": "tom", 
+        "password": "password"
+    },
+    "mail":{
+        "sender": "tom@seu.edu.cn",
+        "receivers": ["tom@example.com"] 
+    }
+}
