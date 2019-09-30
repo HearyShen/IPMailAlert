@@ -116,15 +116,20 @@ class SmtpAlert:
         last_hostname = localHost.getLastHostName()
         last_ip = localHost.getLastIP()
         last_time = localHost.getLastTime()
-        message = MIMEText(
-            f'<h2>The IP address has changed</h2>\
-            <p>The IP address of your host <strong>{hostname}</strong> is <strong>{ip}</strong> now.</p>\
-            <p>The expired IP address of <strong>{last_hostname}</strong> was <strong>{last_ip}</strong>, recorded at <strong>{time.asctime(time.localtime(last_time))}</strong>.</p>\
-            <br />\
-            <hr />\
-            <br />\
-            Powered by <a href="https://github.com/HearyShen/IPMailAlert" target="_blank">IPMailAlert</a>',
-            'html', 'utf-8')
+
+        title = f'<h2>The IP address has changed</h2>'
+        current_status = f'<p>The IP address of your host <strong>{hostname}</strong> is <strong>{ip}</strong> now.</p>'
+        if last_hostname is not None and last_ip is not None and last_time is not None:
+            last_status = f'<p>The expired IP address of <strong>{last_hostname}</strong> was <strong>{last_ip}</strong>, recorded at <strong>{time.asctime(time.localtime(last_time))}</strong>.</p>'
+        else:
+            last_status = 'This is the initial mail.'
+        ending = '<br />\
+                  <hr />\
+                  <br />\
+                  Powered by <a href="https://github.com/HearyShen/IPMailAlert" target="_blank">IPMailAlert</a>'
+        
+        content = title + current_status + last_status + ending
+        message = MIMEText(content, 'html', 'utf-8')
         message['From'] = Header(f"{hostname}", 'utf-8')
         message['To'] = Header("Admin", 'utf-8')
         message['Subject'] = Header('New IP Alert', 'utf-8')
