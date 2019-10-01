@@ -135,7 +135,7 @@ class SmtpAlert:
         message['Subject'] = Header('New IP Alert', 'utf-8')
 
         try:
-            smtpObj = smtplib.SMTP_SSL()
+            smtpObj = smtplib.SMTP_SSL(host=host)
             smtpObj.connect(host, port)
             smtpObj.login(username, password)
             smtpObj.sendmail(sender, receivers, message.as_string())
