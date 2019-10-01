@@ -38,9 +38,9 @@ class LocalHost:
         except IOError:
             print(f'Initial execution at {self.hostname} ({self.ip})')
             # init as None for initial execution
-            self.last_hostname = None
-            self.last_ip = None
-            self.last_time = None
+            self.last_hostname = ''
+            self.last_ip = ''
+            self.last_time = ''
         finally:
             # always write the lastest record
             with open(record_path, 'w') as record_file:
@@ -93,10 +93,9 @@ class SmtpAlert:
                 self.mail_sender = configs['mail']['sender']
                 self.mail_receivers = configs['mail']['receivers']
         except BaseException as e:
-            print(
-                "Error in reading SmtpAlert's config.json! Please check the config file."
-            )
+            print("Error in reading SmtpAlert's config.json! Please check the config file.")
             print(e)
+            input('Press Any Key to Exit.')
 
     def sendIpAlert(self, localHost):
         '''
@@ -119,7 +118,7 @@ class SmtpAlert:
 
         title = f'<h2>The IP address has changed</h2>'
         current_status = f'<p>The IP address of your host <strong>{hostname}</strong> is <strong>{ip}</strong> now.</p>'
-        if last_hostname is not None and last_ip is not None and last_time is not None:
+        if last_hostname is not '' and last_ip is not '' and last_time is not '':
             last_status = f'<p>The expired IP address of <strong>{last_hostname}</strong> was <strong>{last_ip}</strong>, recorded at <strong>{time.asctime(time.localtime(last_time))}</strong>.</p>'
         else:
             last_status = '<p>This is the initial mail.</p>'
@@ -141,9 +140,9 @@ class SmtpAlert:
             smtpObj.sendmail(sender, receivers, message.as_string())
             print(f"An alert mail has been sent to {receivers}.")
         except smtplib.SMTPException as e:
-            print(
-                "Error in sending mail! Please check your config and network.")
+            print("Error in sending mail! Please check your config and network.")
             print(e)
+            input('Press Any Key to Exit.')
         finally:
             smtpObj.close()
 
