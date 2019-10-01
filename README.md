@@ -9,9 +9,9 @@ The IPMailAlert is designed to report IP address changes due to the [DHCP](https
 
 ## 2  Download
 
-|                                  | Windows                                                      | Linux                                                        |
-| -------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| initial version (Oct 1, 2019)]() | [View Release](https://github.com/HearyShen/IPMailAlert/releases) | [View Release](https://github.com/HearyShen/IPMailAlert/releases) |
+|                               | Windows                                                      | Linux                                                        |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| initial version (Oct 1, 2019) | [View Release](https://github.com/HearyShen/IPMailAlert/releases) | [View Release](https://github.com/HearyShen/IPMailAlert/releases) |
 
 ## 3  Usage
 
@@ -54,6 +54,8 @@ The `config.json` provides you the example of a configuration.
   - `"receivers"`: the **To** email addresses receiving the alert mail.
 
 ### 3.3  Run
+
+You can run the program with the `config.json`  in the same folder, or specify the config path via `-C`/`--config`.
 
 For Windows users, it is recommended to use Windows Task Scheduler to set a scheduled task to run this program. 
 
