@@ -57,4 +57,6 @@ The `config.json` provides you the example of a configuration.
 
 For Windows users, it is recommended to use Windows Task Scheduler to set a scheduled task to run this program.
 
-## 
+You should receive an email like this when the IP address of your host changes:
+
+![Mail Example of IPMailAlert](./imgs/mail_example.png)
