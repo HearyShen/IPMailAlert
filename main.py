@@ -122,7 +122,7 @@ class SmtpAlert:
         if last_hostname is not None and last_ip is not None and last_time is not None:
             last_status = f'<p>The expired IP address of <strong>{last_hostname}</strong> was <strong>{last_ip}</strong>, recorded at <strong>{time.asctime(time.localtime(last_time))}</strong>.</p>'
         else:
-            last_status = 'This is the initial mail.'
+            last_status = '<p>This is the initial mail.</p>'
         ending = '<br />\
                   <hr />\
                   <br />\
