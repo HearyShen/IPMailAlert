@@ -1,6 +1,11 @@
 # coding: utf-8
-# Author: jyshen
-# Contact: jiayun.shen@foxmail.com
+"""
+IPMailAlert
+Author: jyshen
+Contact: jiayun.shen@foxmail.com
+"""
+import os
+import sys
 import json
 import socket
 import smtplib
@@ -9,12 +14,27 @@ from email.header import Header
 import argparse
 import time
 
+# get current root of IPMailAlert script
+current_root = sys.path[0]
+print(f'IPMailAlert in {current_root}')
+
+# argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument("-C",
                     "--config",
-                    default='config.json',
+                    default=os.path.join(current_root, 'config.json'),
                     type=str,
                     help='file path for config JSON file.')
+parser.add_argument("-R",
+                    "--record",
+                    default=os.path.join(current_root, 'record.json'),
+                    type=str,
+                    help='file path for record JSON file.')
+parser.add_argument("-T",
+                    "--test",
+                    dest='test',
+                    action='store_true',
+                    help='test the program. (always send email)')
 
 
 class LocalHost:
@@ -150,10 +170,10 @@ class SmtpAlert:
 if __name__ == "__main__":
     args = parser.parse_args()
 
-    localHost = LocalHost()
+    localHost = LocalHost(args.record)
     print(localHost)
 
-    if localHost.isIPChanged():
+    if localHost.isIPChanged() or args.test:
         print('The IP is changed.')
         smtpAlert = SmtpAlert(args.config)
         smtpAlert.sendIpAlert(localHost)
