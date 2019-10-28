@@ -23,7 +23,7 @@ For Linux users, you can directly run this python script.
 
 For Windows users, you can download the EXE executable.
 
-**Python Requirement**: netifaces for retrieving IP address on Linux (use 'pip install netifaces')
+**Python Requirement**: `netifaces` for retrieving IP address on Linux (use `pip install netifaces`)
 
 ### 3.2  Configurate
 
