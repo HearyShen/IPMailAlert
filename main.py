@@ -13,6 +13,8 @@ from email.mime.text import MIMEText
 from email.header import Header
 import argparse
 import time
+import platform
+import netifaces as ni
 
 # get current root of IPMailAlert script
 current_root = sys.path[0]
@@ -44,8 +46,18 @@ class LocalHost:
     def __init__(self, record_path='record.json'):
         # get hostname
         self.hostname = socket.gethostname()
-        # get host ip
-        self.ip = socket.gethostbyname(self.hostname)
+
+        os_platform = platform.platform().lower()
+        if 'windows' in os_platform:
+            # get host ip
+            self.ip = socket.gethostbyname(self.hostname)
+        elif 'linux' in os_platform:
+            try:
+                if_addresses = ni.ifaddresses('eth0')
+            except ValueError:
+                if_addresses = ni.ifaddresses('eno1')
+            self.ip = if_addresses[ni.AF_INET][0]['addr']
+
         # get current timestamp
         self.time = time.time()
 
