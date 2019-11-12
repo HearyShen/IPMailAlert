@@ -1,12 +1,15 @@
 {
     "smtp": {
-        "host": "smtp.seu.edu.cn", 
+        "host": "smtp.seu.edu.cn",
         "port": 465,
-        "username": "tom", 
+        "username": "tom",
         "password": "password"
     },
     "mail":{
         "sender": "tom@seu.edu.cn",
-        "receivers": ["tom@example.com"] 
+        "receivers": ["tom@example.com"]
+    },
+    "network":{
+        "interface": "eth0"
     }
 }

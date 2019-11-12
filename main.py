@@ -43,7 +43,17 @@ class LocalHost:
     '''
     class LocalHost for instantiating and getting host's name and IP.
     '''
-    def __init__(self, record_path='record.json'):
+    def __init__(self, config_path='config.json', record_path='record.json'):
+        try:
+            with open(config_path, mode='r') as config_file:
+                configs = json.load(config_file)
+                # read in network configs
+                self.network_interface = configs['network']['interface']
+        except BaseException as e:
+            print("Error in reading SmtpAlert's config.json! Please check the config file.")
+            print(e)
+            input('Press Any Key to Exit.')
+
         # get hostname
         self.hostname = socket.gethostname()
 
@@ -53,9 +63,9 @@ class LocalHost:
             self.ip = socket.gethostbyname(self.hostname)
         elif 'linux' in os_platform:
             try:
-                if_addresses = ni.ifaddresses('eth0')
+                if_addresses = ni.ifaddresses(self.network_interface)
             except ValueError:
-                if_addresses = ni.ifaddresses('eno1')
+                if_addresses = ni.ifaddresses('eth0')
             self.ip = if_addresses[ni.AF_INET][0]['addr']
 
         # get current timestamp
@@ -182,7 +192,7 @@ class SmtpAlert:
 if __name__ == "__main__":
     args = parser.parse_args()
 
-    localHost = LocalHost(args.record)
+    localHost = LocalHost(args.config, args.record)
     print(localHost)
 
     if localHost.isIPChanged() or args.test:

@@ -32,14 +32,17 @@ The `config.json` provides you the example of a configuration.
 ```json
 {
     "smtp": {
-        "host": "smtp.seu.edu.cn", 
+        "host": "smtp.seu.edu.cn",
         "port": 465,
-        "username": "tom", 
+        "username": "tom",
         "password": "password"
     },
     "mail":{
         "sender": "tom@seu.edu.cn",
-        "receivers": ["tom@example.com"] 
+        "receivers": ["tom@example.com"]
+    },
+    "network":{
+        "interface": "eth0"
     }
 }
 ```
@@ -54,6 +57,8 @@ The `config.json` provides you the example of a configuration.
 - `"mail"` shows the settings for alert mail.
   - `"sender"`: the **From** email address.
   - `"receivers"`: the **To** email addresses receiving the alert mail.
+- `"network"`: shows the settings for network.
+  - `"interface"`: the network interface of your host. This config term is specified for linux users. (default: `eth0`)
 
 ### 3.3  Run
 
